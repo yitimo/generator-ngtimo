@@ -2,7 +2,10 @@
   "name": "generator-ngtimo",
   "version": "0.0.0",
   "description": "yitimo's yeoman angular(^4) generator",
-  "homepage": "",
+  "bugs": {
+    "url": "https://github.com/yitimo/yeui/issues"
+  },
+  "homepage": "https://github.com/yitimo/yeui#readme",
   "author": {
     "name": "yitimo",
     "email": "admin@yitimo.com",
@@ -46,6 +49,9 @@
       "node": true
     }
   },
-  "repository": "yitimo/generator-ngtimo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yitimo/yeui.git"
+  },
   "license": "MIT"
 }
