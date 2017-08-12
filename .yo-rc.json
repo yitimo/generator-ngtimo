@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "yitimo",
+      "authorEmail": "admin@yitimo.com",
+      "authorUrl": "www.yitimo.com"
+    }
+  }
+}
