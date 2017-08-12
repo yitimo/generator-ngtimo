@@ -2,6 +2,11 @@
   "name": "generator-ngtimo",
   "version": "0.0.0",
   "description": "yitimo's yeoman angular(^4) generator",
+  "scripts": {
+    "prepublish": "nsp check",
+    "pretest": "eslint . --fix",
+    "test": "jest"
+  },
   "bugs": {
     "url": "https://github.com/yitimo/yeui/issues"
   },
@@ -36,11 +41,6 @@
   },
   "jest": {
     "testEnvironment": "node"
-  },
-  "scripts": {
-    "prepublish": "nsp check",
-    "pretest": "eslint . --fix",
-    "test": "jest"
   },
   "eslintConfig": {
     "extends": "xo-space",
