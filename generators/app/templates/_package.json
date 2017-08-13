@@ -1,15 +1,13 @@
 {
   "name": "<%= appName %>",
-  "version": "2.0.0",
-  "description": "angular demo by yitim",
+  "version": "0.0.0",
+  "description": "",
   "keywords": [
     "angular",
     "webpack",
     "typescript"
   ],
-  "author": "yitimo <635928008@qq.com>",
-  "private": true,
-  "license": "MIT",
+  "author": "",
   "scripts": {
     "build:aot:prod": "npm run clean:dist && npm run clean:aot && cross-env BUILD_AOT=1 npm run webpack -- --config config/webpack.prod.js  --progress --profile --bail",
     "build:aot": "npm run build:aot:prod",
@@ -34,6 +32,8 @@
     "webpack": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js"
   },
   "dependencies": {
+    <% if (needMaterial) { %>"@angular/cdk": "^2.0.0-beta.8",
+    "@angular/material": "^2.0.0-beta.8",<% } %>
     "@angular/animations": "~4.3.1",
     "@angular/common": "~4.3.1",
     "@angular/compiler": "~4.3.1",
@@ -49,7 +49,6 @@
     "ie-shim": "^0.1.0",
     "reflect-metadata": "^0.1.10",
     "rxjs": "~5.0.2",
-    "yeui": "^1.1.9",
     "zone.js": "0.8.14"
   },
   "devDependencies": {
@@ -103,12 +102,5 @@
     "webpack-dev-server": "~2.4.2",
     "webpack-dll-bundles-plugin": "^1.0.0-beta.5",
     "webpack-merge": "~4.1.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yitimo/angular-starter-yitimo.git"
-  },
-  "bugs": {
-    "url": "https://github.com/yitimo/angular-starter-yitimo/issues"
   }
 }

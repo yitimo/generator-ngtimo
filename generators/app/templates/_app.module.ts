@@ -1,33 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {
-  NgModule,
-  ApplicationRef
-} from '@angular/core';
-import { YUPModule } from 'yeui';
+import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-/*
- * Platform and Environment providers/directives/pipes
- */
 import { ENV_PROVIDERS } from './environment';
-// App is our top level component
 import { AppComponent } from './app.component';
-
+<% if (addCommon) { %>import { AppRoutingModule } from './app.route';
+import { CoreModule } from './-core';
+import { SharedModule } from './-shared';<% } %>
+import 'hammerjs';
 import '../styles/global.css';
 
-/**
- * `AppModule` is the main entry point into Angular2's bootstraping process
- */
 @NgModule({
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule, BrowserAnimationsModule, YUPModule
+    BrowserModule, BrowserAnimationsModule,<% if (addCommon) { %>
+    AppRoutingModule, CoreModule, SharedModule<% } %>
   ],
   providers: [
     ENV_PROVIDERS
-  ]
+  ],
+  entryComponents: []
 })
 export class AppModule {}

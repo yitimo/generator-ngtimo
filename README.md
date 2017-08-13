@@ -1,4 +1,4 @@
-# generator-ngtimo [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+# generator-ngtimo [![NPM version][npm-image]][npm-url]
 > yitimo&#39;s yeoman angular(^4) generator
 
 ## Installation
