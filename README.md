@@ -22,6 +22,12 @@ You can also generate an angular module, it will only generate a basic module fo
 yo ngtimo:module
 ```
 
+You can also generate a component, include inline-style or with html file or generate with a service (personally I'd like to give each page component a service, while for common shared component just use inline-component)
+
+```bash
+yo ngtimo:component
+```
+
 ## License
 
 MIT © [yitimo](www.yitimo.com)
