@@ -41,7 +41,7 @@ module.exports = class extends Generator {
   writing() {
     // 包含 module.ts component.ts route.ts service.ts default.page
     this.fs.copyTpl(
-      this.templatePath('_index.ts'),
+      this.templatePath('_index_ts'),
       this.destinationPath(`index.ts`),
       {
         ModuleName: this.props.moduleName[0].toUpperCase() + this.props.moduleName.slice(1),
@@ -49,7 +49,7 @@ module.exports = class extends Generator {
       }
     );
     this.fs.copyTpl(
-      this.templatePath('_module.ts'),
+      this.templatePath('_module_ts'),
       this.destinationPath(`${this.props.moduleName}.module.ts`),
       {
         ModuleName: this.props.moduleName[0].toUpperCase() + this.props.moduleName.slice(1),
@@ -58,7 +58,7 @@ module.exports = class extends Generator {
       }
     );
     this.fs.copyTpl(
-      this.templatePath('_service.ts'),
+      this.templatePath('_service_ts'),
       this.destinationPath(`${this.props.moduleName}.service.ts`),
       {
         ModuleName: this.props.moduleName[0].toUpperCase() + this.props.moduleName.slice(1),
@@ -66,7 +66,7 @@ module.exports = class extends Generator {
       }
     );
     this.fs.copyTpl(
-      this.templatePath('_component.ts'),
+      this.templatePath('_component_ts'),
       this.destinationPath(`${this.props.moduleName}.component.ts`),
       {
         ModuleName: this.props.moduleName[0].toUpperCase() + this.props.moduleName.slice(1),
@@ -75,11 +75,11 @@ module.exports = class extends Generator {
       }
     );
     this.fs.copy(
-      this.templatePath('_component.css'),
+      this.templatePath('_component_css'),
       this.destinationPath(`${this.props.moduleName}.component.css`)
     );
     this.fs.copyTpl(
-      this.templatePath('_component.html'),
+      this.templatePath('_component_html'),
       this.destinationPath(`${this.props.moduleName}.component.html`),
       {
         ModuleName: this.props.moduleName[0].toUpperCase() + this.props.moduleName.slice(1),
@@ -89,7 +89,7 @@ module.exports = class extends Generator {
     );
     if (this.props.needRoute) {
       this.fs.copyTpl(
-        this.templatePath('_route.ts'),
+        this.templatePath('_route_ts'),
         this.destinationPath(`${this.props.moduleName}.route.ts`),
         {
           ModuleName: this.props.moduleName[0].toUpperCase() + this.props.moduleName.slice(1),
