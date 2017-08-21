@@ -63,7 +63,7 @@ yo ngtimo:component
 
 ## License
 
-MIT © [yitimo](www.yitimo.com)
+MIT © yitimo
 
 
 [npm-image]: https://badge.fury.io/js/generator-ngtimo.svg
