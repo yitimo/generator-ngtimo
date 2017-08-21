@@ -1,16 +1,15 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { <%=ModuleName%>Component } from './<%=moduleName%>.component';
-import { DefaultComponent } from './default';
+import { <%=ModuleName%>Component } from './<%=moduleName%>.component';<%for(let page of pages){%>
+import { <%=page[0].toUpperCase() + page.slice(1)%>Component } from './<%=page%>';<%}%>
 
 const routes: Routes = [
     {
         path: '<%=moduleName%>',
         component: <%=ModuleName%>Component,
-        children: [
-            { path: '', component: DefaultComponent },
-            { path: 'default', component: DefaultComponent }
+        children: [<%for(let page of pages){%>
+            { path: '<%=page%>', component: <%=page[0].toUpperCase() + page.slice(1)%>Component },<%}%>
         ]
     }
 ];

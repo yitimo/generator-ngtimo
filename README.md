@@ -22,6 +22,16 @@ You can also generate an angular module, it will only generate a basic module fo
 yo ngtimo:module
 ```
 
+当构建模块时的可选参数如下：
+
+1. --route *是否包含路由(并不是生成一个路由模块，而是生成一个包含子路由页面的完整模块)*
+
+当构建模块时会出现的问题如下：
+
+1. 模块名 (生成的模块名，目前会直接拿来当作类的命名, 所以使用特殊符号时需要在生成后做相应更改, 以后会改善)
+2. 基地址 (模块会在哪个目录下生成, 默认为当前目录(.))
+3. 包含的子页面(当添加--route参数时有效，值为页面(即组件)名以 "," 拼接)
+
 You can also generate a component, include inline-style or with html file or generate with a service (personally I'd like to give each page component a service, while for common shared component just use inline-component)
 
 ```bash

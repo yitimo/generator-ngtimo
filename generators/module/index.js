@@ -3,6 +3,7 @@ const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
 const mkdirp = require('mkdirp');
+const path = require('path');
 
 module.exports = class extends Generator {
   prompting() {
@@ -10,6 +11,25 @@ module.exports = class extends Generator {
     this.log(yosay(
       'You are using ' + chalk.red('generator-ngtimo') + ' to make a module !'
     ));
+
+    this.option('name', {
+      type: String,
+      required: false,
+      desc: 'Module name'
+    });
+
+    this.option('path', {
+      type: String,
+      required: false,
+      desc: 'Base path'
+    });
+
+    this.option('route', {
+      type: Boolean,
+      required: false,
+      default: false,
+      desc: 'Include router and pages'
+    });
 
     const prompts = [{
       type: 'input',
@@ -21,10 +41,10 @@ module.exports = class extends Generator {
       message: 'Where to create new module? default in current folder',
       default: '.'
     }, {
-      type: 'confirm',
-      name: 'needRoute',
-      message: 'Should the new module include a child route? (it will add a child route and default page)',
-      default: true
+      type: 'input',
+      name: 'routePages',
+      message: 'names of router pages(split with ",") eg: (page1,page2)? (it will only work when added --route option)',
+      default: ''
     }];
 
     return this.prompt(prompts).then(props => {
@@ -33,9 +53,11 @@ module.exports = class extends Generator {
   }
 
   default() {
-    this.log(`Create folder ${this.props.basePath}/${this.props.moduleName}`);
-    mkdirp(`${this.props.basePath}/${this.props.moduleName}`);
-    this.destinationRoot(this.destinationPath(`${this.props.basePath}/${this.props.moduleName}`));
+    if (path.basename(this.destinationPath()) !== this.props.moduleName) {
+      this.log(`Create folder ${this.props.basePath}/${this.props.moduleName}`);
+      mkdirp(`${this.props.basePath}/${this.props.moduleName}`);
+      this.destinationRoot(this.destinationPath(`${this.props.basePath}/${this.props.moduleName}`));
+    }
   }
 
   writing() {
@@ -54,7 +76,8 @@ module.exports = class extends Generator {
       {
         ModuleName: this.props.moduleName[0].toUpperCase() + this.props.moduleName.slice(1),
         moduleName: this.props.moduleName,
-        needRoute: this.props.needRoute
+        needRoute: this.options.route,
+        pages: this.props.routePages.split(',')
       }
     );
     this.fs.copyTpl(
@@ -71,7 +94,7 @@ module.exports = class extends Generator {
       {
         ModuleName: this.props.moduleName[0].toUpperCase() + this.props.moduleName.slice(1),
         moduleName: this.props.moduleName,
-        needRoute: this.props.needRoute
+        needRoute: this.options.route
       }
     );
     this.fs.copy(
@@ -84,22 +107,28 @@ module.exports = class extends Generator {
       {
         ModuleName: this.props.moduleName[0].toUpperCase() + this.props.moduleName.slice(1),
         moduleName: this.props.moduleName,
-        needRoute: this.props.needRoute
+        needRoute: this.options.route
       }
     );
-    if (this.props.needRoute) {
+    if (this.options.route) {
+      let pages = this.props.routePages.split(',');
       this.fs.copyTpl(
         this.templatePath('_route_ts'),
         this.destinationPath(`${this.props.moduleName}.route.ts`),
         {
           ModuleName: this.props.moduleName[0].toUpperCase() + this.props.moduleName.slice(1),
-          moduleName: this.props.moduleName
+          moduleName: this.props.moduleName,
+          pages: pages
         }
       );
-      this.fs.copy(
-        this.templatePath('_defaultPage/**'),
-        this.destinationPath(`default`)
-      );
+      for (let page of pages) {
+        this.composeWith(require.resolve('../component'), {
+          name: page,
+          path: this.destinationPath('/' + this.props.moduleName),
+          inline: false,
+          service: true
+        });
+      }
     }
   }
 };

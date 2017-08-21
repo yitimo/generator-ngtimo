@@ -3,6 +3,7 @@ const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
 const mkdirp = require('mkdirp');
+const path = require('path');
 
 module.exports = class extends Generator {
   prompting() {
@@ -11,36 +12,83 @@ module.exports = class extends Generator {
       'You are using ' + chalk.red('generator-ngtimo') + ' to make a component !'
     ));
 
-    const prompts = [{
-      type: 'input',
-      name: 'componentName',
-      message: 'Name of your new component?'
-    }, {
-      type: 'input',
-      name: 'basePath',
-      message: 'Where to create new module? default in current folder',
-      default: '.'
-    }, {
-      type: 'confirm',
-      name: 'needInline',
-      message: 'Should the new component use inline template?',
-      default: false
-    }, {
-      type: 'confirm',
-      name: 'needService',
-      message: 'Should the new component include a service?',
-      default: false
-    }];
+    this.option('name', {
+      type: String,
+      required: false,
+      desc: 'Component name'
+    });
+
+    this.option('path', {
+      type: String,
+      required: false,
+      desc: 'Base path'
+    });
+
+    this.option('inline', {
+      type: Boolean,
+      required: false,
+      desc: 'Inline template'
+    });
+
+    this.option('service', {
+      type: Boolean,
+      required: false,
+      desc: 'Need service'
+    });
+
+    let prompts = [];
+
+    if (this.options.name === undefined) {
+      console.log(this.options.name);
+      prompts.push({
+        type: 'input',
+        name: 'componentName',
+        message: 'Name of your new component?'
+      });
+    }
+
+    if (this.options.path === undefined) {
+      prompts.push({
+        type: 'input',
+        name: 'basePath',
+        message: 'Where to create new module? default in current folder',
+        default: '.'
+      });
+    }
+
+    if (this.options.inline === undefined) {
+      prompts.push({
+        type: 'confirm',
+        name: 'needInline',
+        message: 'Should the new component use inline template?',
+        default: false
+      });
+    }
+
+    if (this.options.service === undefined) {
+      prompts.push({
+        type: 'confirm',
+        name: 'needService',
+        message: 'Should the new component include a service?',
+        default: false
+      });
+    }
 
     return this.prompt(prompts).then(props => {
       this.props = props;
+      this.props.componentName = this.options.name;
+      this.props.basePath = this.options.path;
+      this.props.needInline = this.options.inline;
+      this.props.needService = this.options.service;
     });
   }
 
   default() {
-    this.log(`Create folder ${this.props.basePath}/${this.props.componentName}`);
-    mkdirp(`${this.props.basePath}/${this.props.componentName}`);
-    this.destinationRoot(this.destinationPath(`${this.props.basePath}/${this.props.componentName}`));
+    if (path.basename(this.destinationPath()) !== this.props.componentName) {
+      this.log(`Create folder ${this.props.basePath}/${this.props.componentName}`);
+      mkdirp(`${this.props.basePath}/${this.props.componentName}`);
+      this.destinationRoot(this.destinationPath(`${this.props.basePath}/${this.props.componentName}`));
+    }
   }
 
   writing() {
