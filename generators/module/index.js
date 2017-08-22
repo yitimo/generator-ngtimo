@@ -53,11 +53,9 @@ module.exports = class extends Generator {
   }
 
   default() {
-    if (path.basename(this.destinationPath()) !== this.props.moduleName) {
-      this.log(`Create folder ${this.props.basePath}/${this.props.moduleName}`);
-      mkdirp(`${this.props.basePath}/${this.props.moduleName}`);
-      this.destinationRoot(this.destinationPath(`${this.props.basePath}/${this.props.moduleName}`));
-    }
+    this.log(`Create folder ${this.props.basePath}/${this.props.moduleName}`);
+    mkdirp(`${this.props.basePath}/${this.props.moduleName}`);
+    this.destinationRoot(this.destinationPath(`${this.props.basePath}/${this.props.moduleName}`));
   }
 
   writing() {
@@ -121,10 +119,11 @@ module.exports = class extends Generator {
           pages: pages
         }
       );
+      let dpath = this.destinationPath();
       for (let page of pages) {
         this.composeWith(require.resolve('../component'), {
           name: page,
-          path: this.destinationPath('/' + this.props.moduleName),
+          path: dpath,
           inline: false,
           service: true
         });
