@@ -94,7 +94,7 @@ module.exports = class extends Generator {
   writing() {
     // 包含 module.ts component.ts route.ts service.ts default.page
     this.fs.copyTpl(
-      this.templatePath('_index.ts'),
+      this.templatePath('_index_ts'),
       this.destinationPath(`index.ts`),
       {
         needService: this.props.needService,
@@ -103,7 +103,7 @@ module.exports = class extends Generator {
       }
     );
     this.fs.copyTpl(
-      this.templatePath('_component.ts'),
+      this.templatePath('_component_ts'),
       this.destinationPath(`${this.props.componentName}.component.ts`),
       {
         needInline: this.props.needInline,
@@ -114,7 +114,7 @@ module.exports = class extends Generator {
     );
     if (this.props.needService) {
       this.fs.copyTpl(
-        this.templatePath('_service.ts'),
+        this.templatePath('_service_ts'),
         this.destinationPath(`${this.props.componentName}.service.ts`),
         {
           ComponentName: this.props.componentName[0].toUpperCase() + this.props.componentName.slice(1),
@@ -124,11 +124,11 @@ module.exports = class extends Generator {
     }
     if (!this.props.needInline) {
       this.fs.copy(
-        this.templatePath('_component.css'),
+        this.templatePath('_component_css'),
         this.destinationPath(`${this.props.componentName}.component.css`)
       );
       this.fs.copyTpl(
-        this.templatePath('_component.html'),
+        this.templatePath('_component_html'),
         this.destinationPath(`${this.props.componentName}.component.html`),
         {
           ComponentName: this.props.componentName[0].toUpperCase() + this.props.componentName.slice(1),

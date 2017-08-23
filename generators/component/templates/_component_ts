@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 <%}%>
 @Component({
     selector: '<%=componentName%>',
-    <%if(needInline){%>templateUrl: './<%=componentName%>.component.html',
+    <%if(!needInline){%>templateUrl: './<%=componentName%>.component.html',
     styleUrls: ['./<%=componentName%>.component.css']<%}else{%>template: `
         <%=ComponentName%>
     `,
