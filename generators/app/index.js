@@ -18,16 +18,6 @@ module.exports = class extends Generator {
       name: 'appName',
       message: 'Your project name(你的项目名称)',
       default: this.appname
-    }, {
-      type: 'confirm',
-      name: 'addCommon',
-      message: 'Would you like to add some common code(include CoreModule, SharedModule, Router)?\n(要自动创建额外的常用内容吗, 包含了核心模块、共享模块和路由能力)',
-      default: true
-    }, {
-      type: 'confirm',
-      name: 'needMaterial',
-      message: 'Would you like to add Material2(it will be added as a part of the SharedModule)?\n(要整合Material2吗, 会自动包含在SharedModule里)',
-      default: true
     }];
 
     return this.prompt(prompts).then(props => {
@@ -66,87 +56,32 @@ module.exports = class extends Generator {
      * );
      */
     this.fs.copy(
-      this.templatePath('config/**'),
-      this.destinationPath('config')
+      this.templatePath('common/**'),
+      this.destinationPath()
     );
-    this.fs.copy(
-      this.templatePath('src/**'),
-      this.destinationPath('src')
-    );
-    this.fs.copy(
+    this.fs.copyTpl(
       this.templatePath('_gitignore'),
       this.destinationPath('.gitignore')
     );
-    this.fs.copy(
-      this.templatePath('tsconfig.json'),
-      this.destinationPath('tsconfig.json')
-    );
-    this.fs.copy(
-      this.templatePath('tsconfig.webpack.json'),
-      this.destinationPath('tsconfig.webpack.json')
-    );
-    this.fs.copy(
-      this.templatePath('tslint.json'),
-      this.destinationPath('tslint.json')
-    );
     this.fs.copyTpl(
-      this.templatePath('_index.html'),
+      this.templatePath('_index_html'),
       this.destinationPath('src/index.html'),
       {
         appName: this.props.appName
       }
     );
     this.fs.copyTpl(
-      this.templatePath('_package.json'),
+      this.templatePath('_package_json'),
       this.destinationPath('package.json'),
-      {
-        appName: this.props.appName,
-        needMaterial: this.props.needMaterial
-      }
-    );
-    this.fs.copyTpl(
-      this.templatePath('_README.MD'),
-      this.destinationPath('README.MD'),
       {
         appName: this.props.appName
       }
     );
-    if (this.props.addCommon) {
-      this.fs.copy(
-        this.templatePath('_core.module'),
-        this.destinationPath('src/app/-core')
-      );
-      this.fs.copy(
-        this.templatePath('_shared.module'),
-        this.destinationPath('src/app/-shared')
-      );
-      this.fs.copyTpl(
-        this.templatePath('_shared.module.ts'),
-        this.destinationPath('src/app/-shared/shared.module.ts'),
-        {
-          needMaterial: this.props.needMaterial
-        }
-      );
-    }
     this.fs.copyTpl(
-      this.templatePath('_app.module.ts'),
-      this.destinationPath('src/app/app.module.ts'),
+      this.templatePath('_README_MD'),
+      this.destinationPath('README.MD'),
       {
-        addCommon: this.props.addCommon
-      }
-    );
-    this.fs.copyTpl(
-      this.templatePath('_app.component.ts'),
-      this.destinationPath('src/app/app.component.ts'),
-      {
-        addCommon: this.props.addCommon
-      }
-    );
-    this.fs.copyTpl(
-      this.templatePath('_app.route.ts'),
-      this.destinationPath('src/app/app.route.ts'),
-      {
-        addCommon: this.props.addCommon
+        appName: this.props.appName
       }
     );
   }

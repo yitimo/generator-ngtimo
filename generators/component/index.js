@@ -76,10 +76,18 @@ module.exports = class extends Generator {
 
     return this.prompt(prompts).then(props => {
       this.props = props;
-      this.props.componentName = this.options.name;
-      this.props.basePath = this.options.path;
-      this.props.needInline = this.options.inline;
-      this.props.needService = this.options.service;
+      if (this.options.name) {
+        this.props.componentName = this.options.name;
+      }
+      if (this.options.path) {
+        this.props.basePath = this.options.path;
+      }
+      if (this.options.inline) {
+        this.props.needInline = this.options.inline;
+      }
+      if (this.options.service) {
+        this.props.needService = this.options.service;
+      }
     });
   }
 

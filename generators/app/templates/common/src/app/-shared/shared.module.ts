@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-<% if (needMaterial) { %>import {
+import {
     MdButtonModule, MdMenuModule, MdInputModule, MdTableModule,
     MdToolbarModule, MdDialogModule, MdProgressSpinnerModule,
     MdPaginatorModule, MdIconModule, MdSidenavModule, MdCardModule
 } from '@angular/material';
-import { CdkTableModule, ObserveContentModule } from '@angular/cdk';<% } %>
+import { CdkTableModule, ObserveContentModule } from '@angular/cdk';
 
 @NgModule({
     declarations: [ ],

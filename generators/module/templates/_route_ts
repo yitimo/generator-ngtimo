@@ -8,7 +8,8 @@ const routes: Routes = [
     {
         path: '<%=moduleName%>',
         component: <%=ModuleName%>Component,
-        children: [<%for(let page of pages){%>
+        children: [
+            <%if(pages.length){%>{ path: '', component: <%=pages[0][0].toUpperCase() + pages[0].slice(1)%>Component },<%}%><%for(let page of pages){%>
             { path: '<%=page%>', component: <%=page[0].toUpperCase() + page.slice(1)%>Component },<%}%>
         ]
     }

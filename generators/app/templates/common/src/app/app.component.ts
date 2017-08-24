@@ -4,9 +4,7 @@ import {
 
 @Component({
   selector: 'app',
-  template: `
-    Hello~
-    <% if (addCommon) { %><router-outlet></router-outlet><% } %>
-  `,
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {}
