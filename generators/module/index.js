@@ -3,7 +3,7 @@ const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
 const mkdirp = require('mkdirp');
-const path = require('path');
+// Const path = require('path');
 
 module.exports = class extends Generator {
   prompting() {
@@ -125,7 +125,7 @@ module.exports = class extends Generator {
           name: page,
           path: dpath,
           inline: false,
-          service: true
+          service: false
         });
       }
     }
