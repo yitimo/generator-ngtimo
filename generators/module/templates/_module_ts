@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-<%if(needRoute){%>import { DefaultComponent } from './default';<%}%>
 import { <%=ModuleName%>Service } from './<%=moduleName%>.service';
 import { <%=ModuleName%>Component } from './<%=moduleName%>.component';<%if(needRoute){%>
 import { <%=ModuleName%>RoutingModule } from './<%=moduleName%>.route';<%for(let page of pages){%>
