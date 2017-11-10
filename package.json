@@ -1,6 +1,6 @@
 {
   "name": "generator-ngtimo",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "yitimo's yeoman angular(^4) generator",
   "scripts": {
     "prepublish": "nsp check",
@@ -14,7 +14,7 @@
   "author": {
     "name": "yitimo",
     "email": "admin@yitimo.com",
-    "url": "www.yitimo.com"
+    "url": "https://www.yitimo.com"
   },
   "files": [
     "generators"
