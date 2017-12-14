@@ -1,24 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-    MdButtonModule, MdMenuModule, MdInputModule, MdTableModule,
-    MdToolbarModule, MdDialogModule, MdProgressSpinnerModule,
-    MdPaginatorModule, MdIconModule, MdSidenavModule, MdCardModule
-} from '@angular/material';
-import { CdkTableModule, ObserveContentModule } from '@angular/cdk';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
-    declarations: [ ],
-    imports: [ CommonModule, MdDialogModule, MdButtonModule ],
-    exports: [
-        CommonModule, FormsModule, ReactiveFormsModule,
-        MdButtonModule, MdMenuModule,
-        MdToolbarModule, MdDialogModule,
-        MdInputModule, MdProgressSpinnerModule,
-        MdTableModule, CdkTableModule, MdPaginatorModule,
-        MdIconModule, MdSidenavModule, MdCardModule
-    ],
-    providers: []
+    declarations: [],
+    imports: [ CommonModule, ReactiveFormsModule, FormsModule ],
+    exports: [ CommonModule, ReactiveFormsModule, FormsModule ],
+    providers: [],
 })
 export class SharedModule {}

@@ -16,8 +16,26 @@ module.exports = class extends Generator {
     const prompts = [{
       type: 'input',
       name: 'appName',
-      message: 'Your project name(你的项目名称)',
-      default: this.appname
+      message: 'your project name',
+      default: path.basename(this.destinationPath())
+    }, {
+      type: 'checkbox',
+      name: 'npmOrYarn',
+      message: 'use npm or yarn',
+      choices: [{
+        name: 'npm',
+        value: 'npm',
+        checked: true
+      }, {
+        name: 'yarn only',
+        value: 'yarn',
+        checked: true
+      }]
+    }, {
+      type: 'confirm',
+      name: 'useBaseUrl',
+      message: 'use pushState or not (是否使用 pushState 路由)',
+      default: false
     }];
 
     return this.prompt(prompts).then(props => {
@@ -29,8 +47,8 @@ module.exports = class extends Generator {
   default() {
     if (path.basename(this.destinationPath()) !== this.props.appName) {
       this.log(
-        '发现你不是在 ' + this.props.appName + ' 目录下构建\n' +
-        '我将主动创建此目录.(created folder with app name)'
+        'not inside ' + this.props.appName + '.\n' +
+        'create folder with the given app name.'
       );
       mkdirp(this.props.appName);
       this.destinationRoot(this.destinationPath(this.props.appName));
@@ -67,26 +85,50 @@ module.exports = class extends Generator {
       this.templatePath('_index_html'),
       this.destinationPath('src/index.html'),
       {
-        appName: this.props.appName
+        appName: this.props.appName,
+        useBaseUrl: this.props.useBaseUrl
+      }
+    );
+    this.fs.copyTpl(
+      this.templatePath('_approute_'),
+      this.destinationPath('src/app/app.route.ts'),
+      {
+        useBaseUrl: this.props.useBaseUrl
       }
     );
     this.fs.copyTpl(
       this.templatePath('_package_json'),
       this.destinationPath('package.json'),
       {
-        appName: this.props.appName
+        appName: this.props.appName,
+        npmOrYarn: this.props.npmOrYarn
       }
     );
     this.fs.copyTpl(
       this.templatePath('_README_MD'),
       this.destinationPath('README.MD'),
       {
-        appName: this.props.appName
+        appName: this.props.appName,
+        npmOrYarn: this.props.npmOrYarn === 'yarn'
       }
     );
   }
   // 构建完成后执行安装命令 这里去掉了bower保留npm
   install() {
-    this.installDependencies({bower: false});
+    if (this.props.npmOrYarn === 'yarn') {
+      this.installDependencies({bower: false, npm: false, yarn: true});
+    } else {
+      this.installDependencies({bower: false, npm: true, yarn: false});
+    }
   }
 };
+
+// Format name (when has '-' inside)
+// function nameFormat(name) {
+//   let rs = '';
+//   let pieces = name.split('-');
+//   for (let piece of pieces) {
+//     rs += piece.slice(0, 1, piece[0].toUpperCase);
+//   }
+//   return rs;
+// }
