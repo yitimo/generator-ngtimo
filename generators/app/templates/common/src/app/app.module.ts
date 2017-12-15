@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { environment } from 'environments/environment';
 import { AppRoutingModule } from './app.route';
 import { WildcardRoutingModule } from './wildcard.route';
 import { AppComponent } from './app.component';
@@ -25,7 +26,9 @@ import { CoreModule } from './-core';
     AppRoutingModule,
     WildcardRoutingModule // 此模块用作全局的缺省路由，所以必须放在imports数组的最后一个
   ],
-  providers: [],
+  providers: [
+    environment.ENV_PROVIDERS
+  ],
   entryComponents: []
 })
 export class AppModule {}

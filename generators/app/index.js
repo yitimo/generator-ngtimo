@@ -34,13 +34,14 @@ module.exports = class extends Generator {
     }, {
       type: 'confirm',
       name: 'useBaseUrl',
-      message: 'use pushState or not (是否使用 pushState 路由)',
+      message: 'use pushState or not(use hash instead)',
       default: false
     }];
 
     return this.prompt(prompts).then(props => {
       // 用户交互完成后把得到的配置设置到参数中
       this.props = props;
+      console.log(this.props.useBaseUrl);
     });
   }
   // 从generator-generator参考过来用于生成顶级应用目录的
@@ -116,16 +117,14 @@ module.exports = class extends Generator {
   }
   // 构建完成后执行安装命令 这里去掉了bower保留npm
   install() {
-    console.log(this.props.npmOrYarn);
     if (this.props.npmOrYarn === 'yarn') {
-      console.log('use yarn only !!!!!');
       this.installDependencies({
         yarn: {force: true},
-        npm: false
+        npm: false,
+        bower: false
       });
     } else {
-      console.log('use npm ~~~~~~~~~');
-      this.installDependencies({bower: false, npm: true});
+      this.installDependencies({bower: false, npm: true, yarn: false});
     }
   }
 };
