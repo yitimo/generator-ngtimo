@@ -19,13 +19,13 @@ module.exports = class extends Generator {
       message: 'your project name',
       default: path.basename(this.destinationPath())
     }, {
-      type: 'checkbox',
+      type: 'list',
       name: 'npmOrYarn',
       message: 'use npm or yarn',
       choices: [{
         name: 'npm',
         value: 'npm',
-        checked: true
+        checked: false
       }, {
         name: 'yarn only',
         value: 'yarn',
@@ -73,6 +73,7 @@ module.exports = class extends Generator {
      *  }
      * );
      */
+    console.log(this.props.npmOrYarn);
     this.fs.copy(
       this.templatePath('common/**'),
       this.destinationPath()
@@ -115,10 +116,16 @@ module.exports = class extends Generator {
   }
   // 构建完成后执行安装命令 这里去掉了bower保留npm
   install() {
+    console.log(this.props.npmOrYarn);
     if (this.props.npmOrYarn === 'yarn') {
-      this.installDependencies({bower: false, npm: false, yarn: true});
+      console.log('use yarn only !!!!!');
+      this.installDependencies({
+        yarn: {force: true},
+        npm: false
+      });
     } else {
-      this.installDependencies({bower: false, npm: true, yarn: false});
+      console.log('use npm ~~~~~~~~~');
+      this.installDependencies({bower: false, npm: true});
     }
   }
 };
