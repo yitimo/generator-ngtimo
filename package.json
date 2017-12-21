@@ -1,7 +1,7 @@
 {
   "name": "generator-ngtimo",
-  "version": "0.6.1",
-  "description": "yitimo's yeoman angular(^4) generator",
+  "version": "0.6.2",
+  "description": "yitimo's yeoman angular generator",
   "scripts": {
     "prepublish": "nsp check",
     "pretest": "eslint . --fix"
