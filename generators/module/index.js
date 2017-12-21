@@ -12,18 +12,6 @@ module.exports = class extends Generator {
       'You are using ' + chalk.red('generator-ngtimo') + ' to make a module !'
     ));
 
-    this.option('name', {
-      type: String,
-      required: false,
-      desc: 'Module name'
-    });
-
-    this.option('path', {
-      type: String,
-      required: false,
-      desc: 'Base path'
-    });
-
     this.option('route', {
       type: Boolean,
       required: false,
@@ -40,12 +28,16 @@ module.exports = class extends Generator {
       name: 'basePath',
       message: 'Where to create new module? default in current folder',
       default: '.'
-    }, {
-      type: 'input',
-      name: 'routePages',
-      message: 'names of router pages(split with ",") eg: (page1,page2)? (it will only work when added --route option)',
-      default: ''
     }];
+
+    if (this.options.route) {
+      prompts.push({
+        type: 'input',
+        name: 'routePages',
+        message: 'names of router pages(split with ",") eg: (page1,page2)?',
+        default: 'default'
+      });
+    }
 
     return this.prompt(prompts).then(props => {
       this.props = props;
